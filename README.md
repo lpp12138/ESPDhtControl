@@ -8,4 +8,7 @@
 使用到的库
 ----------------------
 ArduinoJson  https://github.com/bblanchon/ArduinoJson
+DHTesp     https://github.com/beegee-tokyo/DHTesp
+IRremoteESP8266  https://github.com/markszabo/IRremoteESP8266
 ----------------------
+需要使用ESP系列的Arduino开发板定义

@@ -47,6 +47,7 @@ namespace DHTControl
                 {
                     deviceData["ssid"] = JsonValue.CreateStringValue(ssidTextBox.Text);
                     deviceData["password"] = JsonValue.CreateStringValue(wifiPassWordBox.Password);
+                    deviceData["deviceName"] = JsonValue.CreateStringValue(deviceNameTextBox.Text);
                 }
             }
 

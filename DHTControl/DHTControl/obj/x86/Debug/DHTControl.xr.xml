@@ -59,6 +59,8 @@
       <RootProperty Name="Header" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
+      <RootEvent Name="Toggled" />
+      <RootEvent Name="Loaded" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.Slider">
       <RootProperty Name="VerticalAlignment" />
@@ -74,14 +76,18 @@
       <RootProperty Name="VerticalAlignment" />
       <RootProperty Name="Height" />
       <RootProperty Name="Width" />
+      <RootProperty Name="FontSize" />
+      <RootProperty Name="FontFamily" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.TextBox">
+      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="VerticalAlignment" />
+      <RootProperty Name="Text" />
       <RootProperty Name="PlaceholderText" />
       <RootProperty Name="AcceptsReturn" />
       <RootProperty Name="IsDoubleTapEnabled" />
       <RootProperty Name="IsReadOnly" />
-      <RootProperty Name="VerticalAlignment" />
-      <RootProperty Name="HorizontalAlignment" />
+      <RootProperty Name="Height" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Automation.AutomationProperties">
       <RootMethod Name="GetHelpText" />
@@ -93,12 +99,12 @@
       <RootProperty Name="Title" />
       <RootProperty Name="PrimaryButtonText" />
       <RootProperty Name="SecondaryButtonText" />
+      <RootProperty Name="FullSizeDesired" />
       <RootProperty Name="Content" />
       <RootEvent Name="PrimaryButtonClick" />
       <RootEvent Name="SecondaryButtonClick" />
     </RootType>
     <RootType FullName="Windows.UI.Xaml.Controls.PasswordBox">
-      <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
     </RootType>
     <RootType FullName="DHTControl.SetUpNewDeviceContentDialog" />

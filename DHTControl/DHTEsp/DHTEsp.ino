@@ -2,7 +2,7 @@
  Name:		DHTEsp.ino
  Created:	2019/6/19 17:02:51
  Author:	lpp
- Mail:lpp12138@outlook.com
+ Mail:      lpp12138@outlook.com
 */
 
 #include <IRremoteESP8266.h>
@@ -20,8 +20,6 @@
 char* deviceName = "device2";
 char* deviceType = "switch";
 char* sensorType = "switch";
-char* ssid = "LPP_2.4Ghz";
-char* password = "51804000";
 const unsigned short localUdpPort = 2333;
 String serverIP = "";
 unsigned short serverTcpPort = 2334;
@@ -31,39 +29,25 @@ WiFiClient myTcp;
 bool switchFlag = false;
 const  uint16_t sendPin = 4;
 IRHaierACYRW02 myAC(sendPin);
+byte rstConfigpin = D5;//GPIO 14
 
+//store config data in EEPROM using structure
 typedef struct configData
 {
 	char deviceName[32];
-	char deviceType[16];
-	char sensorType[16];
+	//char deviceType[16];
+	//char sensorType[16];
 	char ssid[64];
 	char password[32];
 
 }configData;
 configData configdata;
 
-void saveConfig()
-{
-	EEPROM.begin(128);
-	uint8_t* p = (uint8_t*)(&configdata);
-	for (int i = 0; i < sizeof(configdata); i++)
-	{
-		EEPROM.write(i, *(p + i));
-	}
-	EEPROM.commit();
-}
+//EEPROM config
+void flushconfig();
+void saveConfig();
+void loadConfig();
 
-void loadConfig()
-{
-	EEPROM.begin(128);
-	uint8_t* p = (uint8_t*)(&configdata);
-	for (int i = 0; i < sizeof(configdata); i++)
-	{
-		*(p + i) = EEPROM.read(i);
-	}
-	EEPROM.commit();
-}
 
 String recUdpPackage();
 const void connectWifi();
@@ -75,10 +59,39 @@ void setup()
 	myUdp.begin(localUdpPort);
 	dht.setup(D2, DHTesp::DHT11);
 	myAC.begin();
+	WiFi.persistent(false);
+	pinMode(rstConfigpin, INPUT_PULLUP);
+	loadConfig();
 }
 
 void loop() 
 {
+	delay(100);
+	if (digitalRead(rstConfigpin) == LOW) Serial.println("LOW");
+	if (configdata.ssid == NULL || digitalRead(rstConfigpin) == LOW)
+	{
+		Serial.println("waiting setup data");
+		while (true)
+		{
+			if (Serial.available())
+			{
+				StaticJsonBuffer<500> receiveJsonBuffer;
+				String serialData;
+				serialData = Serial.readString();
+				if (serialData != "")
+				{
+					Serial.println("Serial Received: " + serialData);
+					JsonObject& root = receiveJsonBuffer.parseObject(serialData);
+					strcpy(configdata.ssid, root["ssid"]);
+					strcpy(configdata.deviceName, root["deviceName"]);
+					strcpy(configdata.password, root["password"]);
+					Serial.println("config loaded ssid:" + String(configdata.ssid) + " psk:" + String(configdata.password));
+					saveConfig();
+					break;
+				}
+			}
+		}
+	}
 	if (WiFi.status() != WL_CONNECTED)
 	{
 		connectWifi();
@@ -169,9 +182,9 @@ const void connectWifi()
 {
 	delay(10);
 	Serial.print("Connecting to ");
-	Serial.println(ssid);
+	Serial.println(configdata.ssid);
 	WiFi.mode(WIFI_STA);
-	WiFi.begin(ssid, password);
+	WiFi.begin(configdata.ssid, configdata.password);
 
 	while (WiFi.status() != WL_CONNECTED) {
 		delay(500);
@@ -184,3 +197,35 @@ const void connectWifi()
 	Serial.println(WiFi.localIP());
 }
 
+void flushconfig()
+{
+	EEPROM.begin(1024);
+	uint8_t* p = (uint8_t*)(&configdata);
+	for (int i = 0; i < sizeof(configdata); i++)
+	{
+		EEPROM.write(i, 0);
+	}
+	EEPROM.commit();
+}
+
+void saveConfig()
+{
+	EEPROM.begin(1024);
+	uint8_t* p = (uint8_t*)(&configdata);
+	for (int i = 0; i < sizeof(configdata); i++)
+	{
+		EEPROM.write(i, *(p + i));
+	}
+	EEPROM.commit();
+}
+
+void loadConfig()
+{
+	EEPROM.begin(1024);
+	uint8_t* p = (uint8_t*)(&configdata);
+	for (int i = 0; i < sizeof(configdata); i++)
+	{
+		*(p + i) = EEPROM.read(i);
+	}
+	EEPROM.commit();
+}

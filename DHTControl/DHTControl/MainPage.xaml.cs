@@ -36,7 +36,6 @@ namespace DHTControl
         public MainPage()
         {
             this.InitializeComponent();
-
         }
         private async void BrodaCastUdpData(String Data)
         {
@@ -48,7 +47,7 @@ namespace DHTControl
             datagramSocket.Dispose();
             datagramSocket = null;
         }
-        private void Timer_Tick(object sender, object e)
+        private async void Timer_Tick(object sender, object e)
         {
             string data = "{\"protocol\":\"myEspNet\",\"command\":\"ping\"}";
             BrodaCastUdpData(data);
@@ -61,6 +60,28 @@ namespace DHTControl
             }
             avrDht = avrDht / OnlineDevices.Count;
             AvrDhtTextBlock.Text = $"AvrDht:{avrDht}";
+            if(autoControlToggleSwitch.IsOn)
+            {
+                int minDht = -1, maxDht = 999;
+                try
+                {
+                    minDht = int.Parse(dhtRngMinTextBox.Text);
+                    maxDht = int.Parse(dhtRngMaxTextBox.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageDialog messageDialog = new MessageDialog("range wrong input"+ex.Message);
+                    await messageDialog.ShowAsync();
+                }
+                if (avrDht > maxDht)
+                {
+                    //turn on
+                }
+                else if (avrDht<minDht)
+                {
+                    //turn off
+                }
+            }
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -217,7 +238,7 @@ namespace DHTControl
                     });
                 }
                 //小睡一会免得占用资源
-                Thread.Sleep(250);
+                Thread.Sleep(500);
             }
         }
 
@@ -225,6 +246,31 @@ namespace DHTControl
         {
             ContentDialog contentDialog = new SetUpNewDeviceContentDialog();
             await contentDialog.ShowAsync();
+        }
+
+        private void autoControlToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            if(autoControlToggleSwitch.IsOn)
+            {
+                dhtRngMaxTextBox.IsEnabled = true;
+                dhtRngMinTextBox.IsEnabled = true;
+            }
+            else
+            {
+                dhtRngMaxTextBox.IsEnabled = false;
+                dhtRngMinTextBox.IsEnabled = false;
+            }
+        }
+
+        private void autoControlToggleSwitch_loaded(object sender, RoutedEventArgs e)
+        {
+            autoControlToggleSwitch_Toggled(sender, e);
+        }
+
+        private async void InfoAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageDialog message = new MessageDialog("Open sourced at: https://github.com/lpp12138/ESPDhtControl");
+            await message.ShowAsync();
         }
     }
 }

@@ -43,7 +43,7 @@
             <x:String>Low</x:String>
         </ComboBox>
         <ScrollViewer Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5">
-            <TextBox x:ConnectionId='15' x:Name="LogTextBox" PlaceholderText="Log" AutomationProperties.HelpText="Double click to clear output" AcceptsReturn="True" IsDoubleTapEnabled="True" IsReadOnly="True"/>
+            <TextBox x:ConnectionId='18' x:Name="LogTextBox" PlaceholderText="Log" AutomationProperties.HelpText="Double click to clear output" AcceptsReturn="True" IsDoubleTapEnabled="True" IsReadOnly="True"/>
         </ScrollViewer>
         <Button x:ConnectionId='7' x:Name="StopListeningButton" Content="StopListening" Grid.Column="2" HorizontalAlignment="Stretch"   VerticalAlignment="Stretch" IsEnabled="False"                                  />
         <Button x:ConnectionId='8' x:Name="ClearLogButton" Content="Clear log" Grid.Column="6" Grid.Row="3" VerticalAlignment="Top"                              Height="32" Width="76"/>
@@ -53,6 +53,11 @@
         <TextBlock x:ConnectionId='12' x:Name="OnlineDevicesTextBlock" HorizontalAlignment="Left" Grid.Row="2" Text="OnlineDevices:0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="98"/>
         <TextBlock x:ConnectionId='13' x:Name="AvrDhtTextBlock" HorizontalAlignment="Left"  Grid.Row="2" Text="AvrDht:0" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="19" Width="53"/>
         <Button x:ConnectionId='14' x:Name="SetUpNewDeviceButton" Content="SetUpNewDevice" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left"                                   />
+        <TextBox x:ConnectionId='15' x:Name="dhtRngMinTextBox" Grid.Column="2" HorizontalAlignment="Left"  Grid.Row="2" VerticalAlignment="Center" Text="40"/>
+        <TextBox x:ConnectionId='16' x:Name="dhtRngMaxTextBox" Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="2" VerticalAlignment="Center" Text="70"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Center" Grid.Row="2" Text="~" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="36"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Right"  Grid.Row="2" Text="Dht Range:" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Segoe UI"/>
+        <ToggleSwitch x:ConnectionId='17' x:Name="autoControlToggleSwitch" Grid.Column="3" Header="auto control:" Grid.Row="2" VerticalAlignment="Center"                                                                                  />
     </Grid>
 </Page>
 

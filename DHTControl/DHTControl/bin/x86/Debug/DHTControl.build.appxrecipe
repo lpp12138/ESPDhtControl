@@ -67,15 +67,6 @@
     <AppxPackagedFile Include="C:\Users\lpp12138\source\repos\DHTControl\DHTControl\bin\x86\Debug\DHTControl.xr.xml">
       <PackagePath>DHTControl.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\lpp12138\source\repos\DHTControl\DHTControl\bin\x86\Debug\App.xbf">
-      <PackagePath>App.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\lpp12138\source\repos\DHTControl\DHTControl\bin\x86\Debug\MainPage.xbf">
-      <PackagePath>MainPage.xbf</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\lpp12138\source\repos\DHTControl\DHTControl\bin\x86\Debug\SetUpNewDeviceContentDialog.xbf">
-      <PackagePath>SetUpNewDeviceContentDialog.xbf</PackagePath>
-    </AppxPackagedFile>
     <AppxPackagedFile Include="E:\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>

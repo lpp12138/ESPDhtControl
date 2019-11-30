@@ -10,58 +10,59 @@
 
     <Grid ScrollViewer.HorizontalScrollBarVisibility="Disabled">
         <Grid.RowDefinitions>
-            <RowDefinition Height="90*"/>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="80*"/>
-            <RowDefinition Height="355*"/>
-            <RowDefinition Height="66*"/>
-            <RowDefinition Height="127*"/>
+            <RowDefinition Height="51*"/>
+            <RowDefinition Height="49*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="180*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="52*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="184*"/>
-            <ColumnDefinition Width="96*"/>
-            <ColumnDefinition Width="184*"/>
-            <ColumnDefinition Width="102*"/>
-            <ColumnDefinition Width="183*"/>
-            <ColumnDefinition Width="101*"/>
-            <ColumnDefinition Width="125*"/>
-            <ColumnDefinition Width="49*"/>
+            <ColumnDefinition Width="138*"/>
+            <ColumnDefinition Width="72*"/>
+            <ColumnDefinition Width="145*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="92*"/>
+            <ColumnDefinition Width="36*"/>
         </Grid.ColumnDefinitions>
-        <AppBarButton Grid.Column="7" HorizontalAlignment="Center" Icon="Cancel" Height="40" Click="AppBarButton_Click" Margin="0,10,0,0" Width="40"/>
+        <AppBarButton Grid.Column="7" HorizontalAlignment="Center" Icon="Cancel"  Click="AppBarButton_Click" Height="Auto" Width="Auto"/>
         <Button x:Name="StartListeningButton" Content="StartListening" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="{ThemeResource AutoSuggestBoxIconFontSize}" Click="StartListeningButton_Click"/>
-        <ComboBox x:Name="ModeComboBox" Grid.Column="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" PlaceholderText="Mode">
+        <ComboBox x:Name="ModeComboBox" Grid.Column="2" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" PlaceholderText="Mode" >
             <x:String>Auto</x:String>
             <x:String>Cool</x:String>
             <x:String>Dry</x:String>
             <x:String>Heat</x:String>
         </ComboBox>
-        <ToggleSwitch x:Name="PowerToggleSwitch" Grid.Column="6" Header="Power" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
+        <ToggleSwitch x:Name="PowerToggleSwitch" Grid.Column="6" Header="Power" Grid.Row="1" FontSize="10" Height="Auto" Width="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
         <ComboBox x:Name="FanSpeedComboBox" Grid.Column="4" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" PlaceholderText="FanSpeed">
             <x:String>Auto</x:String>
             <x:String>High</x:String>
             <x:String>Med</x:String>
             <x:String>Low</x:String>
         </ComboBox>
-        <ScrollViewer Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5">
+        <ScrollViewer Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5">
             <TextBox x:Name="LogTextBox" PlaceholderText="Log" AutomationProperties.HelpText="Double click to clear output" AcceptsReturn="True" IsDoubleTapEnabled="True" IsReadOnly="True"/>
         </ScrollViewer>
         <Button x:Name="StopListeningButton" Content="StopListening" Grid.Column="2" HorizontalAlignment="Stretch"   VerticalAlignment="Stretch" IsEnabled="False" Click="StopListeningButton_Click"/>
-        <Button x:Name="ClearLogButton" Content="Clear log" Grid.Column="6" Grid.Row="3" VerticalAlignment="Top" Click="ClearLogButton_Click" Height="32" Width="76"/>
+        <Button x:Name="ClearLogButton" Content="Clear log" Grid.Column="6" Grid.Row="4" VerticalAlignment="Top" Click="ClearLogButton_Click" Height="Auto" Width="Auto"/>
         <Button x:Name="SendCommandButton" Content="SendCommand" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="SendCommandButton_Click" />
-        <Slider x:Name="TempSlider" Grid.Row="1" VerticalAlignment="Top" Maximum="32" Minimum="16" Height="32" Margin="0,18,0,0"/>
-        <TextBlock x:Name="TempSliderValueTextBlock" HorizontalAlignment="Left"  Grid.Row="1" Text="Temp" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="34" />
-        <TextBlock x:Name="OnlineDevicesTextBlock" HorizontalAlignment="Left" Grid.Row="2" Text="OnlineDevices:0" TextWrapping="Wrap" VerticalAlignment="Top" Height="19" Width="98"/>
-        <TextBlock x:Name="AvrDhtTextBlock" HorizontalAlignment="Left"  Grid.Row="2" Text="AvrDht:0" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="19" Width="53"/>
-        <Button x:Name="SetUpNewDeviceButton" Content="SetUpNewDevice" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Left" Click="SetUpNewDeviceButton_Click"/>
-        <TextBox x:Name="dhtRngMinTextBox" Grid.Column="2" HorizontalAlignment="Left"  Grid.Row="2" VerticalAlignment="Center" Text="40"/>
-        <TextBox x:Name="dhtRngMaxTextBox" Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="2" VerticalAlignment="Center" Text="70"/>
-        <TextBlock Grid.Column="2" HorizontalAlignment="Center" Grid.Row="2" Text="~" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="36"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Right"  Grid.Row="2" Text="Dht Range:" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Segoe UI"/>
-        <ToggleSwitch x:Name="autoControlToggleSwitch" Grid.Column="3" Header="auto control:" Grid.Row="2" VerticalAlignment="Center" Toggled="autoControlToggleSwitch_Toggled" Loaded="autoControlToggleSwitch_loaded"/>
-        <AppBarButton x:Name="infoAppBarButton" Label="about"  Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="InfoAppBarButton_Click">
+        <Slider x:Name="TempSlider" Grid.Row="2" VerticalAlignment="Center" Maximum="32" Minimum="16" Height="Auto" Width="Auto"/>
+        <TextBlock x:Name="TempSliderValueTextBlock" HorizontalAlignment="Left"  Grid.Row="1" Text="Temp:" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="Auto" Width="Auto" FontFamily="Segoe UI"  />
+        <TextBlock x:Name="OnlineDevicesTextBlock" HorizontalAlignment="Left" Grid.Row="3" Text="OnlineDevices:0" TextWrapping="Wrap" VerticalAlignment="Top" Height="Auto" Width="Auto"  />
+        <TextBlock x:Name="AvrDhtTextBlock" HorizontalAlignment="Left"  Grid.Row="3" Text="AvrDht:0" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="Auto" Width="Auto" FontFamily="Segoe UI"/>
+        <Button x:Name="SetUpNewDeviceButton" Content="SetUpNewDevice" Grid.Row="4" VerticalAlignment="Top" Click="SetUpNewDeviceButton_Click" Height="Auto" Width="Auto" />
+        <TextBox x:Name="dhtRngMinTextBox" Grid.Column="2" HorizontalAlignment="Left"  Grid.Row="3" VerticalAlignment="Center" Text="40" Height="Auto" Width="Auto"/>
+        <TextBox x:Name="dhtRngMaxTextBox" Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="3" VerticalAlignment="Center" Text="70" Height="Auto" Width="Auto"/>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Center" Grid.Row="3" Text="~" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="36" Height="Auto" Width="Auto" FontFamily="Segoe UI" />
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left"  Grid.Row="3" Text="Dht Range:" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Segoe UI" Height="Auto" Width="Auto"/>
+        <ToggleSwitch x:Name="autoControlToggleSwitch" Grid.Column="3" Grid.Row="3" Toggled="autoControlToggleSwitch_Toggled" Loaded="autoControlToggleSwitch_loaded" HorizontalAlignment="Center" Height="Auto" Width="Auto"/>
+        <AppBarButton x:Name="infoAppBarButton" Label="about"  Grid.Row="6" VerticalAlignment="Center" Click="InfoAppBarButton_Click" Height="Auto" Width="Auto">
             <AppBarButton.Icon>
                 <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE946;"/>
             </AppBarButton.Icon>
-        </AppBarButton> 
+        </AppBarButton>
     </Grid>
 </Page>

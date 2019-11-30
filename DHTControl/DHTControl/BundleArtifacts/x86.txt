@@ -1,0 +1,2 @@
+MainPackage=C:\Users\lpp12138\source\repos\DHTControl\DHTControl\bin\x86\Debug\DHTControl_1.0.1.0_x86_Debug.appx
+SymbolPackage=C:\Users\lpp12138\source\repos\DHTControl\DHTControl\obj\x86\Debug\Symbols\DHTControl_1.0.1.0_x86_Debug.appxsym

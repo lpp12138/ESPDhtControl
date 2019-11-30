@@ -34,12 +34,9 @@ namespace DHTControl
             SerialDevice serialDevice;
             string portNames = SerialDevice.GetDeviceSelector();
             var deviceInformation = await DeviceInformation.FindAllAsync(portNames);
-            JsonObject setupData = new JsonObject();
+            JsonObject deviceData = new JsonObject();
             {
-                setupData["protocol"] = JsonValue.CreateStringValue("myEspNet");
-                setupData["command"] = JsonValue.CreateStringValue("setup");
-                JsonObject deviceData = new JsonObject();
-                if (ssidTextBox.Text == null || wifiPassWordBox == null)
+                if (ssidTextBox.Text == null || wifiPassWordBox == null ||deviceNameTextBox ==null)
                 {
                     await new MessageDialog("element not filled").ShowAsync();
                 }
@@ -60,10 +57,12 @@ namespace DHTControl
                     if (serialDevice.BaudRate == 115200)
                     {
                         Debug.WriteLine(serialDevice.PortName);
-                        Debug.WriteLine(setupData.ToString());
+                        Debug.WriteLine(deviceData.ToString());
                         DataWriter dataWriter = new DataWriter(serialDevice.OutputStream);
-                        dataWriter.WriteString(setupData.ToString());
+                        dataWriter.WriteString(deviceData.ToString());
                         await dataWriter.StoreAsync();
+                        dataWriter.Dispose();
+                        serialDevice.Dispose();
                     }
                 }
             }

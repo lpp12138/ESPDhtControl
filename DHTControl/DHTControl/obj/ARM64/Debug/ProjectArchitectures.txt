@@ -1,0 +1,1 @@
+C:\Users\lpp12138\source\repos\DHTControl\DHTControl\DHTControl.csproj;arm64

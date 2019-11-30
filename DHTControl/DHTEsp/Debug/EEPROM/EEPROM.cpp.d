@@ -31,6 +31,7 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/binary.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/esp8266_peri.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/c_types.h \
+ E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/esp8266_undocumented.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/twi.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Arduino.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/core_esp8266_features.h \
@@ -46,6 +47,8 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/WString.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/HardwareSerial.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/libc/xtensa-lx106-elf/include/inttypes.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/libc/xtensa-lx106-elf/include/time.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/libc/xtensa-lx106-elf/include/machine/time.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Stream.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Print.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Printable.h \
@@ -63,6 +66,7 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266\variants\nodemcu/pins_arduino.h \
  E:\Arduino\hardware\esp8266com\esp8266\variants\nodemcu/../generic/common.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\EEPROM\EEPROM.h \
+ E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/debug.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/os_type.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/ets_sys.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/spi_flash.h

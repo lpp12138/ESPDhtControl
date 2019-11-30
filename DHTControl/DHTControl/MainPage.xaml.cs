@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Data.Json;
 using DHTControl.AdditionalCodeFloder;
 using System.Threading;
+
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
 namespace DHTControl
@@ -30,6 +31,7 @@ namespace DHTControl
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        
         public Dictionary<String, JsonObject> OnlineDevices = new Dictionary<String, JsonObject>();
         public bool NeedOnlineDevicesRefresh=false;
         StreamSocketListener listener;
@@ -37,28 +39,36 @@ namespace DHTControl
         {
             this.InitializeComponent();
         }
-        private async void BrodaCastUdpData(String Data)
+        private async void BroadCastUdpData(String Data)
         {
             DatagramSocket datagramSocket = new DatagramSocket();
             IOutputStream outputStream = await datagramSocket.GetOutputStreamAsync(new HostName("255.255.255.255"), "2333");
             DataWriter dataWriter = new DataWriter(outputStream);
             dataWriter.WriteString(Data);
-            await dataWriter.StoreAsync();
-            datagramSocket.Dispose();
-            datagramSocket = null;
+            var dataWriterStoreOperation= await dataWriter.StoreAsync();
+            Debug.WriteLine(dataWriterStoreOperation.ToString());
+            if(datagramSocket!=null)
+            {
+                datagramSocket.Dispose();
+                datagramSocket = null;
+            }
         }
         private async void Timer_Tick(object sender, object e)
         {
             string data = "{\"protocol\":\"myEspNet\",\"command\":\"ping\"}";
-            BrodaCastUdpData(data);
-            OnlineDevicesTextBlock.Text = $"OnlineDevices:{OnlineDevices.Count}";
+            BroadCastUdpData(data);
+            if (LogTextBox.Text.Count() > 3000) LogTextBox.Text = "";
             int avrDht = 0;
             List<string> OnlineDevicesKeysList = OnlineDevices.Keys.ToList();
             for (int i = OnlineDevicesKeysList.Count - 1; i >= 0; i--)
             {
-                avrDht += (int)OnlineDevices[OnlineDevicesKeysList[i]].GetNamedNumber("dht");
+                var jsondata=OnlineDevices[OnlineDevicesKeysList[i]]["data"].GetObject();
+                if (jsondata.ToString() == "{}") return;
+                avrDht += int.Parse(jsondata.GetNamedString("dht"));
             }
+            if (OnlineDevices.Count == 0) return;
             avrDht = avrDht / OnlineDevices.Count;
+            OnlineDevicesTextBlock.Text = $"OnlineDevices:{OnlineDevices.Count}";
             AvrDhtTextBlock.Text = $"AvrDht:{avrDht}";
             if(autoControlToggleSwitch.IsOn)
             {
@@ -76,10 +86,12 @@ namespace DHTControl
                 if (avrDht > maxDht)
                 {
                     //turn on
+                    BroadCastUdpData("{\"protocol\":\"myEspNet\",\"command\":\"set\",\"data\":{\"power\":true,\"fanSpeed\":\"auto\",\"Mode\":\"dry\",\"temp\":26}}");
                 }
                 else if (avrDht<minDht)
                 {
                     //turn off
+                    BroadCastUdpData("{\"protocol\":\"myEspNet\",\"command\":\"set\",\"data\":{\"power\":false,\"fanSpeed\":\"auto\",\"Mode\":\"dry\",\"temp\":26}}");
                 }
             }
         }
@@ -93,14 +105,15 @@ namespace DHTControl
         {
             DispatcherTimer timer = new DispatcherTimer
             {
-                Interval = new System.TimeSpan(0, 0, 5)
+                Interval = new System.TimeSpan(0, 0, 10)
             };
+            timer.Start();
             timer.Tick += Timer_Tick;
             Thread thread = new Thread(seeIfOnlineDevicesChanged);
             thread.Start();
         }
 
-        private void Listener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
+        private async void Listener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
         {
             try
             {
@@ -111,7 +124,9 @@ namespace DHTControl
                     while (!streamReader.EndOfStream)
                     {
                         TcpData += streamReader.ReadLine();
+                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => LogTextBox.Text += TcpData+"\r\n");
                         Debug.WriteLine(TcpData);
+                        SolveTcpData(TcpData);
                     }
                 }
 
@@ -190,7 +205,7 @@ namespace DHTControl
                 ["data"] = commandData
             };
             LogTextBox.Text += sendData.ToString()+"\r\n";
-            BrodaCastUdpData(sendData.ToString());
+            BroadCastUdpData(sendData.ToString());
         }
 
         private void ClearLogButton_Click(object sender, RoutedEventArgs e)

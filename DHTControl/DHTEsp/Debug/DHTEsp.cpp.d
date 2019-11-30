@@ -31,6 +31,7 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/binary.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/esp8266_peri.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/c_types.h \
+ E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/esp8266_undocumented.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/twi.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Arduino.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/core_esp8266_features.h \
@@ -46,6 +47,8 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/WString.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/HardwareSerial.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/libc/xtensa-lx106-elf/include/inttypes.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/libc/xtensa-lx106-elf/include/time.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/libc/xtensa-lx106-elf/include/machine/time.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Stream.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Print.h \
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Printable.h \
@@ -63,11 +66,11 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/debug.h \
  E:\Arduino\hardware\esp8266com\esp8266\variants\nodemcu/pins_arduino.h \
  E:\Arduino\hardware\esp8266com\esp8266\variants\nodemcu/../generic/common.h \
- E:\Arduino\libraries\IRremoteESP8266-master\src/IRremoteESP8266.h \
- E:\Arduino\libraries\IRremoteESP8266-master\src/IRsend.h \
- E:\Arduino\libraries\IRremoteESP8266-master\src/IRremoteESP8266.h \
- E:\Arduino\libraries\IRremoteESP8266-master\src/ir_Haier.h \
- E:\Arduino\libraries\IRremoteESP8266-master\src/IRsend.h \
+ C:\Users\lpp12138\Documents\Arduino\libraries\IRremoteESP8266-master\src/IRremoteESP8266.h \
+ C:\Users\lpp12138\Documents\Arduino\libraries\IRremoteESP8266-master\src/IRsend.h \
+ C:\Users\lpp12138\Documents\Arduino\libraries\IRremoteESP8266-master\src/IRremoteESP8266.h \
+ C:\Users\lpp12138\Documents\Arduino\libraries\IRremoteESP8266-master\src/ir_Haier.h \
+ C:\Users\lpp12138\Documents\Arduino\libraries\IRremoteESP8266-master\src/IRsend.h \
  C:\Users\lpp12138\Documents\Arduino\libraries\DHT_sensor_library_for_ESPx/DHTesp.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\EEPROM/EEPROM.h \
  C:\Users\lpp12138\Documents\Arduino\libraries\ArduinoJson\src/ArduinoJson.h \
@@ -163,13 +166,21 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/arch/cc.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/lwip-err-t.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/mem.h \
- E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/gluedebug.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/glue.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/user_interface.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/os_type.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/ets_sys.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/ipv4_addr.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/lwip/ip_addr.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/lwip/def.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/lwip/ip4_addr.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/lwip/ip6_addr.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/lwip/def.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/queue.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/spi_flash.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/gpio.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/gluedebug.h \
+ E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/ipv4_addr.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/libc/xtensa-lx106-elf/include/limits.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/arch/cc.h \
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/lwip2/include/lwip-git-hash.h \
@@ -189,13 +200,6 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/queue.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/ESP8266WiFiSTA.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/ESP8266WiFiGeneric.h \
- E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/user_interface.h \
- E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/os_type.h \
- E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/ets_sys.h \
- E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/ipv4_addr.h \
- E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/queue.h \
- E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/spi_flash.h \
- E:\Arduino\hardware\esp8266com\esp8266/tools/sdk/include/gpio.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/ESP8266WiFiAP.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/ESP8266WiFiScan.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/WiFiClient.h \
@@ -220,6 +224,7 @@ C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\
  E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/Updater.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/CertStoreBearSSL.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/BearSSLHelpers.h \
+ E:\Arduino\hardware\esp8266com\esp8266\cores\esp8266/FS.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/WiFiServerSecureBearSSL.h \
  E:\Arduino\hardware\esp8266com\esp8266\libraries\ESP8266WiFi\src/WiFiClientSecure.h \
  C:\Users\lpp12138\AppData\Local\Temp\VMBuilds\DHTEsp\esp8266com_nodemcuv2\Debug\jsonDataDefs.h

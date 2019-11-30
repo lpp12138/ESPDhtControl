@@ -17,9 +17,8 @@
 #include <ESP8266WiFi.h>
 #include "jsonDataDefs.h"
 
-char* deviceName = "device2";
-char* deviceType = "switch";
-char* sensorType = "switch";
+char* deviceType = "AC";
+char* sensorType = "DHT";
 const unsigned short localUdpPort = 2333;
 String serverIP = "";
 unsigned short serverTcpPort = 2334;
@@ -27,9 +26,10 @@ DHTesp dht;
 WiFiUDP myUdp;
 WiFiClient myTcp;
 bool switchFlag = false;
-const  uint16_t sendPin = 4;
+const  uint16_t sendPin = D1;//GPIO 5 
 IRHaierACYRW02 myAC(sendPin);
-byte rstConfigpin = D5;//GPIO 14
+byte rstConfigpin = D2;//GPIO 4
+String jsonData = "";
 
 //store config data in EEPROM using structure
 typedef struct configData
@@ -51,23 +51,15 @@ void loadConfig();
 
 String recUdpPackage();
 const void connectWifi();
+
 void setup() 
 {
 	Serial.begin(115200);
-	connectWifi();
-	WiFi.setSleepMode(WIFI_NONE_SLEEP);
-	myUdp.begin(localUdpPort);
-	dht.setup(D2, DHTesp::DHT11);
-	myAC.begin();
-	WiFi.persistent(false);
-	pinMode(rstConfigpin, INPUT_PULLUP);
 	loadConfig();
-}
-
-void loop() 
-{
-	delay(100);
+	pinMode(rstConfigpin, INPUT_PULLUP);
+	delay(1000);
 	if (digitalRead(rstConfigpin) == LOW) Serial.println("LOW");
+	else Serial.println("HIGH");
 	if (configdata.ssid == NULL || digitalRead(rstConfigpin) == LOW)
 	{
 		Serial.println("waiting setup data");
@@ -92,16 +84,27 @@ void loop()
 			}
 		}
 	}
+	WiFi.setSleepMode(WIFI_NONE_SLEEP);
+	myUdp.begin(localUdpPort);
+	dht.setup(D7, DHTesp::DHT22);//GPIO13
+	myAC.begin();
+	WiFi.persistent(false);
+	myUdp.begin(localUdpPort);
+}
+
+void loop() 
+{
 	if (WiFi.status() != WL_CONNECTED)
 	{
 		connectWifi();
 		return;
 	}
-	String jsonData = recUdpPackage();
+	jsonData = recUdpPackage();
 	myUdp.flush();
+	delay(10);
 	if (jsonData != "")
 	{
-		StaticJsonBuffer<500> receiveJsonBuffer;
+		StaticJsonBuffer<300> receiveJsonBuffer;
 		JsonObject& root = receiveJsonBuffer.parseObject(jsonData);
 		if (root.success())
 		{
@@ -109,6 +112,7 @@ void loop()
 			if (serverIP == "" || root["protocol"] != "myEspNet" || !myTcp.connect(serverIP, serverTcpPort))
 			{
 				Serial.print("connect Failed or no server ip address");
+				jsonData = "";
 				return;
 			}
 			else
@@ -116,20 +120,25 @@ void loop()
 				bool needSendData = false;
 				String command = root.get<String>("command");
 				Serial.println(command);
-				StaticJsonBuffer<500> sendJsonBuffer;
+				StaticJsonBuffer<200> sendJsonBuffer;
 				JsonObject& returnData = sendJsonBuffer.createObject();
 				returnData["protocol"] = "myEspNet";
-				returnData["deviceName"] = deviceName;
+				returnData["deviceName"] = configdata.deviceName;
 				returnData["deviceType"] = deviceType;
 				JsonObject& returndata = returnData.createNestedObject("data");
 				JsonObject& data = root["data"];
 				if (command == "ping")
 				{
 					needSendData = true;
+					int hum = dht.getHumidity();
+					returndata["dht"] = String(hum);
+					Serial.println("hum: " + String(hum));
 				}
 				if (command == "set")
 				{
-					Serial.println(data.printTo);
+					String sdata;
+					data.printTo(sdata);
+					Serial.println(sdata);
 					myAC.setTemp(data["temp"]);
 					myAC.setPower(data["power"]);
 					if (data["fanSpeed"] == "auto")myAC.setFan(HAIER_AC_YRW02_FAN_AUTO);
@@ -140,17 +149,21 @@ void loop()
 					else if (data["mode"] == "dry")myAC.setMode(HAIER_AC_YRW02_DRY);
 					else if (data["mode"] == "heat") myAC.setMode(HAIER_AC_YRW02_HEAT);
 					else if (data["mode"] == "auto")	myAC.setMode(HAIER_AC_YRW02_AUTO);
+					needSendData = true;
+					myAC.send();
+					returnData["message"] = "setting complete";
 				}
 				if (needSendData)
 				{
 					String sendData;
 					returnData.printTo(sendData);
+					myTcp.println(sendData);
 					Serial.println(sendData);
 					Serial.println();
-					myTcp.println(sendData);
 				}
 			}
 		}
+		jsonData = "";
 	}
 }
 
@@ -172,7 +185,6 @@ String recUdpPackage()
 			Serial.println("Remote IP:" + myUdp.remoteIP().toString());
 			Serial.println("Remote Port:" + String(myUdp.remotePort()));
 		}
-		delay(100);
 		return String(incomeingPackage);
 	}
 	return "";

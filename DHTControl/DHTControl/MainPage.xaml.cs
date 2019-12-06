@@ -34,6 +34,7 @@ namespace DHTControl
         
         public Dictionary<String, JsonObject> OnlineDevices = new Dictionary<String, JsonObject>();
         public bool NeedOnlineDevicesRefresh=false;
+        public bool ACisOn = false;
         StreamSocketListener listener;
         public MainPage()
         {
@@ -83,7 +84,7 @@ namespace DHTControl
                     MessageDialog messageDialog = new MessageDialog("range wrong input"+ex.Message);
                     await messageDialog.ShowAsync();
                 }
-                if (avrDht > maxDht)
+                if (avrDht > maxDht && !ACisOn)
                 {
                     //turn on
                     BroadCastUdpData("{\"protocol\":\"myEspNet\",\"command\":\"set\",\"data\":{\"power\":true,\"fanSpeed\":\"auto\",\"Mode\":\"dry\",\"temp\":26}}");
@@ -91,6 +92,7 @@ namespace DHTControl
                 else if (avrDht<minDht)
                 {
                     //turn off
+                    ACisOn = false;
                     BroadCastUdpData("{\"protocol\":\"myEspNet\",\"command\":\"set\",\"data\":{\"power\":false,\"fanSpeed\":\"auto\",\"Mode\":\"dry\",\"temp\":26}}");
                 }
             }
@@ -109,7 +111,7 @@ namespace DHTControl
             };
             timer.Start();
             timer.Tick += Timer_Tick;
-            Thread thread = new Thread(seeIfOnlineDevicesChanged);
+            Thread thread = new Thread(SeeIfOnlineDevicesChanged);
             thread.Start();
         }
 
@@ -213,7 +215,7 @@ namespace DHTControl
             LogTextBox.Text = "";
         }
 
-        private async void seeIfOnlineDevicesChanged()
+        private async void SeeIfOnlineDevicesChanged()
         {
             while (true)
             {

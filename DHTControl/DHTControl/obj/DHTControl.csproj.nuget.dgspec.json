@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lpp12138\\source\\repos\\DHTControl\\DHTControl\\DHTControl.csproj": {}
+    "C:\\Users\\lpp\\source\\Repos\\DHTControl\\DHTControl\\DHTControl.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lpp12138\\source\\repos\\DHTControl\\DHTControl\\DHTControl.csproj": {
+    "C:\\Users\\lpp\\source\\Repos\\DHTControl\\DHTControl\\DHTControl.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lpp12138\\source\\repos\\DHTControl\\DHTControl\\DHTControl.csproj",
+        "projectUniqueName": "C:\\Users\\lpp\\source\\Repos\\DHTControl\\DHTControl\\DHTControl.csproj",
         "projectName": "DHTControl",
-        "projectPath": "C:\\Users\\lpp12138\\source\\repos\\DHTControl\\DHTControl\\DHTControl.csproj",
-        "packagesPath": "C:\\Users\\lpp12138\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lpp12138\\source\\repos\\DHTControl\\DHTControl\\obj\\",
+        "projectPath": "C:\\Users\\lpp\\source\\Repos\\DHTControl\\DHTControl\\DHTControl.csproj",
+        "packagesPath": "C:\\Users\\lpp\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lpp\\source\\Repos\\DHTControl\\DHTControl\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft SDKs\\UWPNuGetPackages\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\lpp12138\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lpp\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

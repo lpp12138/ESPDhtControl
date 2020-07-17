@@ -18,7 +18,8 @@ using Windows.Devices.Enumeration;
 using Windows.UI.Popups;
 using Windows.Storage.Streams;
 using System.Diagnostics;
-// https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“内容对话框”项模板
+
+//这里定义了设置新设备页面的弹出窗口
 
 namespace DHTControl
 {
@@ -29,18 +30,18 @@ namespace DHTControl
             this.InitializeComponent();
         }
 
-        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args) //用户按下弹窗确定时
         {
             SerialDevice serialDevice;
             string portNames = SerialDevice.GetDeviceSelector();
             var deviceInformation = await DeviceInformation.FindAllAsync(portNames);
             JsonObject deviceData = new JsonObject();
             {
-                if (ssidTextBox.Text == null || wifiPassWordBox == null ||deviceNameTextBox ==null)
+                if (ssidTextBox.Text == null || wifiPassWordBox == null ||deviceNameTextBox ==null) //检查用户输入的数据
                 {
                     await new MessageDialog("element not filled").ShowAsync();
                 }
-                else
+                else //编码json数据
                 {
                     deviceData["ssid"] = JsonValue.CreateStringValue(ssidTextBox.Text);
                     deviceData["password"] = JsonValue.CreateStringValue(wifiPassWordBox.Password);
@@ -48,7 +49,7 @@ namespace DHTControl
                 }
             }
 
-            foreach (var i in deviceInformation)
+            foreach (var i in deviceInformation) //找到连接的开发板并发送数据(通过115200的波特率判断)
             {
                 serialDevice = await SerialDevice.FromIdAsync(i.Id);
                 if (serialDevice != null)

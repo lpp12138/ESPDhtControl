@@ -49,10 +49,10 @@
         <Button x:ConnectionId='7' x:Name="StopListeningButton" Content="StopListening" Grid.Column="2" HorizontalAlignment="Stretch"   VerticalAlignment="Stretch" IsEnabled="False"                                  />
         <Button x:ConnectionId='8' x:Name="ClearLogButton" Content="Clear log" Grid.Column="6" Grid.Row="4" VerticalAlignment="Top"                              Height="Auto" Width="Auto"/>
         <Button x:ConnectionId='9' x:Name="SendCommandButton" Content="SendCommand" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                                 />
-        <Slider x:ConnectionId='10' x:Name="TempSlider" Grid.Row="2" VerticalAlignment="Center" Maximum="32" Minimum="16" Height="Auto" Width="Auto"/>
-        <TextBlock x:ConnectionId='11' x:Name="TempSliderValueTextBlock" HorizontalAlignment="Left"  Grid.Row="1" Text="Temp:" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="Auto" Width="Auto" FontFamily="Segoe UI"  />
-        <TextBlock x:ConnectionId='12' x:Name="OnlineDevicesTextBlock" HorizontalAlignment="Left" Grid.Row="3" Text="OnlineDevices:0" TextWrapping="Wrap" VerticalAlignment="Top" Height="Auto" Width="Auto"  />
-        <TextBlock x:ConnectionId='13' x:Name="AvrDhtTextBlock" HorizontalAlignment="Left"  Grid.Row="3" Text="AvrDht:0" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="Auto" Width="Auto" FontFamily="Segoe UI"/>
+        <Slider x:ConnectionId='10' x:Name="TempSlider" Grid.Row="1" VerticalAlignment="Center" Maximum="32" Minimum="16" Height="Auto" Width="Auto"/>
+        <TextBlock x:ConnectionId='11' x:Name="TempSliderValueTextBlock" HorizontalAlignment="Left"  Grid.Row="1" Text="Temp:" TextWrapping="Wrap" VerticalAlignment="Top" Height="Auto" Width="Auto" FontFamily="Segoe UI"  />
+        <TextBlock x:ConnectionId='12' x:Name="OnlineDevicesTextBlock" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="4" Text="OnlineDevices:0" TextWrapping="Wrap" VerticalAlignment="Top" Height="Auto" Width="Auto"  />
+        <TextBlock x:ConnectionId='13' x:Name="AvrDhtTextBlock" HorizontalAlignment="Left"  Grid.Row="3" Grid.Column="4" Text="AvrDht:0" TextWrapping="Wrap" VerticalAlignment="Bottom" Height="Auto" Width="Auto" FontFamily="Segoe UI"/>
         <Button x:ConnectionId='14' x:Name="SetUpNewDeviceButton" Content="SetUpNewDevice" Grid.Row="4" VerticalAlignment="Top"                                    Height="Auto" Width="Auto" />
         <TextBox x:ConnectionId='15' x:Name="dhtRngMinTextBox" Grid.Column="2" HorizontalAlignment="Left"  Grid.Row="3" VerticalAlignment="Center" Text="40" Height="Auto" Width="Auto"/>
         <TextBox x:ConnectionId='16' x:Name="dhtRngMaxTextBox" Grid.Column="2" HorizontalAlignment="Right"  Grid.Row="3" VerticalAlignment="Center" Text="70" Height="Auto" Width="Auto"/>

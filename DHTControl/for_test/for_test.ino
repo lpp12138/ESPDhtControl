@@ -13,6 +13,8 @@
 #include <ArduinoJson.h>
 #include <EEPROM.h>
 
+//测试函数用程序，无用
+
 byte rstConfigpin = D5;//GPIO 14
 const void connectWifi();
 

@@ -26,21 +26,20 @@ using System.Threading;
 
 namespace DHTControl
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
-    public sealed partial class MainPage : Page
+
+    public sealed partial class MainPage : Page 
     {
         
-        public Dictionary<String, JsonObject> OnlineDevices = new Dictionary<String, JsonObject>();
-        public bool NeedOnlineDevicesRefresh=false;
-        public bool ACisOn = false;
+        public Dictionary<String, JsonObject> OnlineDevices = new Dictionary<String, JsonObject>(); //建立储存在线设备数据的字典
+        public bool NeedOnlineDevicesRefresh=false; //判断是否需要刷新在线设备的旗标
         StreamSocketListener listener;
+
         public MainPage()
         {
             this.InitializeComponent();
         }
-        private async void BroadCastUdpData(String Data)
+
+        private async void BroadCastUdpData(String Data) //广播udp数据
         {
             DatagramSocket datagramSocket = new DatagramSocket();
             IOutputStream outputStream = await datagramSocket.GetOutputStreamAsync(new HostName("255.255.255.255"), "2333");
@@ -54,13 +53,13 @@ namespace DHTControl
                 datagramSocket = null;
             }
         }
-        private async void Timer_Tick(object sender, object e)
+        private async void Timer_Tick(object sender, object e)  //处理计时器打点事件
         {
-            string data = "{\"protocol\":\"myEspNet\",\"command\":\"ping\"}";
+            string data = "{\"protocol\":\"myEspNet\",\"command\":\"ping\"}";  //向客户端发送ping指令
             BroadCastUdpData(data);
-            if (LogTextBox.Text.Count() > 3000) LogTextBox.Text = "";
-            int avrDht = 0;
-            List<string> OnlineDevicesKeysList = OnlineDevices.Keys.ToList();
+            if (LogTextBox.Text.Count() > 3000) LogTextBox.Text = ""; //检查log textbox字符数，防止溢出使程序崩溃
+            int avrDht = 0; //储存平均湿度的变量
+            List<string> OnlineDevicesKeysList = OnlineDevices.Keys.ToList(); //获取在线设备数据字典，并转化为列表计算数据
             for (int i = OnlineDevicesKeysList.Count - 1; i >= 0; i--)
             {
                 var jsondata=OnlineDevices[OnlineDevicesKeysList[i]]["data"].GetObject();
@@ -71,9 +70,10 @@ namespace DHTControl
             avrDht = avrDht / OnlineDevices.Count;
             OnlineDevicesTextBlock.Text = $"OnlineDevices:{OnlineDevices.Count}";
             AvrDhtTextBlock.Text = $"AvrDht:{avrDht}";
-            if(autoControlToggleSwitch.IsOn)
+           
+            if(autoControlToggleSwitch.IsOn) //检查自动控制开关的状态
             {
-                int minDht = -1, maxDht = 999;
+                int minDht = -1, maxDht = 999; //初始化湿度阈值，这样的初始化数值能防止用户在未输入的情况下错误发送指令
                 try
                 {
                     minDht = int.Parse(dhtRngMinTextBox.Text);
@@ -84,7 +84,7 @@ namespace DHTControl
                     MessageDialog messageDialog = new MessageDialog("range wrong input"+ex.Message);
                     await messageDialog.ShowAsync();
                 }
-                if (avrDht > maxDht && !ACisOn)
+                if (avrDht > maxDht)
                 {
                     //turn on
                     BroadCastUdpData("{\"protocol\":\"myEspNet\",\"command\":\"set\",\"data\":{\"power\":true,\"fanSpeed\":\"auto\",\"Mode\":\"dry\",\"temp\":26}}");
@@ -92,18 +92,17 @@ namespace DHTControl
                 else if (avrDht<minDht)
                 {
                     //turn off
-                    ACisOn = false;
                     BroadCastUdpData("{\"protocol\":\"myEspNet\",\"command\":\"set\",\"data\":{\"power\":false,\"fanSpeed\":\"auto\",\"Mode\":\"dry\",\"temp\":26}}");
                 }
             }
         }
 
-        private void AppBarButton_Click(object sender, RoutedEventArgs e)
+        private void AppBarButton_Click(object sender, RoutedEventArgs e) //退出按钮
         {
             Application.Current.Exit();
         }
 
-        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        private void MainPage_Loaded(object sender, RoutedEventArgs e) //在主页面加载完后开启定时器
         {
             DispatcherTimer timer = new DispatcherTimer
             {
@@ -111,7 +110,7 @@ namespace DHTControl
             };
             timer.Start();
             timer.Tick += Timer_Tick;
-            Thread thread = new Thread(SeeIfOnlineDevicesChanged);
+            Thread thread = new Thread(seeIfOnlineDevicesChanged);
             thread.Start();
         }
 
@@ -210,18 +209,18 @@ namespace DHTControl
             BroadCastUdpData(sendData.ToString());
         }
 
-        private void ClearLogButton_Click(object sender, RoutedEventArgs e)
+        private void ClearLogButton_Click(object sender, RoutedEventArgs e) //清除log窗口
         {
             LogTextBox.Text = "";
         }
 
-        private async void SeeIfOnlineDevicesChanged()
+        private async void seeIfOnlineDevicesChanged() //检查在线设备是否需要更新
         {
             while (true)
             {
-                if (NeedOnlineDevicesRefresh)
+                if (NeedOnlineDevicesRefresh) //如果需要
                 {
-                    await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    await this.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => //利用析构器跨线程调整主窗口内显示的信息
                     {
                         var onlineDevices = OnlineDevices;
                         List<string> OnlineDevicesKeysList = onlineDevices.Keys.ToList();
@@ -259,13 +258,13 @@ namespace DHTControl
             }
         }
 
-        private async void SetUpNewDeviceButton_Click(object sender, RoutedEventArgs e)
+        private async void SetUpNewDeviceButton_Click(object sender, RoutedEventArgs e) //设置新设备
         {
             ContentDialog contentDialog = new SetUpNewDeviceContentDialog();
             await contentDialog.ShowAsync();
         }
 
-        private void autoControlToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        private void autoControlToggleSwitch_Toggled(object sender, RoutedEventArgs e) //关于用户窗口显示的控制
         {
             if(autoControlToggleSwitch.IsOn)
             {
@@ -279,12 +278,12 @@ namespace DHTControl
             }
         }
 
-        private void autoControlToggleSwitch_loaded(object sender, RoutedEventArgs e)
+        private void autoControlToggleSwitch_loaded(object sender, RoutedEventArgs e) 
         {
             autoControlToggleSwitch_Toggled(sender, e);
         }
 
-        private async void InfoAppBarButton_Click(object sender, RoutedEventArgs e)
+        private async void InfoAppBarButton_Click(object sender, RoutedEventArgs e) //应用信息
         {
             MessageDialog message = new MessageDialog("Open sourced at: https://github.com/lpp12138/ESPDhtControl");
             await message.ShowAsync();
